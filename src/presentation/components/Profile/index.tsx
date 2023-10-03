@@ -1,7 +1,7 @@
 import { useContext } from 'react'
-import { ChallengesContext } from '../contexts/ChallengeContext'
+import { ChallengesContext } from '../../contexts/ChallengeContext'
 
-import styles from './Profile.module.css'
+import styles from './styles.module.css'
 
 function Profile() {
   const { level } = useContext(ChallengesContext)
@@ -20,4 +20,4 @@ function Profile() {
   )
 }
 
-export default Profile
+export { Profile }

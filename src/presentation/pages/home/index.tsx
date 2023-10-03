@@ -6,11 +6,13 @@ import { GetServerSideProps } from 'next'
 import { ChallengesProvider } from '../../contexts/ChallengeContext'
 import { CountdownProvider } from '../../contexts/CountdownContext'
 
-import ExperienceBar from '../../components/ExperienceBar'
-import Profile from '../../components/Profile'
-import CompletedChallenges from '../../components/CompletedChallenges'
-import Countdown from '../../components/Countdown'
-import ChallengeBox from '../../components/ChallengeBox'
+import {
+  ChallengeBox,
+  CompletedChallenges,
+  Countdown,
+  ExperienceBar,
+  Profile,
+} from '../../components'
 
 import styles from './Home.module.css'
 

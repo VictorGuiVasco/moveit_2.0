@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 
 import { Rajdhani } from 'next/font/google'
-import { CountdownContext } from '../contexts/CountdownContext'
+import { CountdownContext } from '../../contexts/CountdownContext'
 
-import styles from './Countdown.module.css'
+import styles from './styles.module.css'
 
 const rajdhani = Rajdhani({
   subsets: ['latin'],
@@ -66,4 +66,4 @@ function Countdown() {
   )
 }
 
-export default Countdown
+export { Countdown }

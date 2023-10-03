@@ -1,7 +1,7 @@
 import { createContext, useState, ReactNode, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import challenges from '../../utils/challenges.json'
-import LevelUpModal from '../components/LevelUpModal'
+import { LevelUpModal } from '../components/'
 
 interface Challenge {
   type: 'body' | 'eye'
@@ -14,12 +14,14 @@ interface ChallengesContextData {
   currentExperience: number
   challengesCompleted: number
   experienceToNextLevel: number
+  isWaitingChallenge: boolean
   activeChallenge: Challenge
   levelUp: () => void
   startNewChallenge: () => void
   resetChallenge: () => void
   completeChallenge: () => void
   closeLevelUpModal: () => void
+  setIsWaitingChallenge: (b: boolean) => void
 }
 
 interface ChallengesProviderProps {
@@ -43,6 +45,7 @@ export function ChallengesProvider({
     rest.challengesCompleted ?? 0
   )
 
+  const [isWaitingChallenge, setIsWaitingChallenge] = useState(false)
   const [activeChallenge, setActiveChallenge] = useState(null)
   const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false)
 
@@ -68,9 +71,10 @@ export function ChallengesProvider({
   }
 
   function startNewChallenge() {
-    const ramdomChallenge = Math.floor(Math.random() * challenges.length)
-    const challenge = challenges[ramdomChallenge]
+    const randomChallenge = Math.floor(Math.random() * challenges.length)
+    const challenge = challenges[randomChallenge]
 
+    setIsWaitingChallenge(false)
     setActiveChallenge(challenge)
 
     new Audio('/notification.mp3').play
@@ -113,11 +117,13 @@ export function ChallengesProvider({
         challengesCompleted,
         experienceToNextLevel,
         levelUp,
+        isWaitingChallenge,
         startNewChallenge,
         activeChallenge,
         resetChallenge,
         completeChallenge,
         closeLevelUpModal,
+        setIsWaitingChallenge,
       }}
     >
       {children}

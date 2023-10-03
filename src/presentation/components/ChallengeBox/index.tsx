@@ -1,11 +1,16 @@
 import { useContext } from 'react'
-import { ChallengesContext } from '../contexts/ChallengeContext'
-import { CountdownContext } from '../contexts/CountdownContext'
-import styles from './ChallengeBox.module.css'
+import { ChallengesContext } from '../../contexts/ChallengeContext'
+import { CountdownContext } from '../../contexts/CountdownContext'
+
+import styles from './styles.module.scss'
 
 function ChallengeBox() {
-  const { activeChallenge, completeChallenge, resetChallenge } =
-    useContext(ChallengesContext)
+  const {
+    activeChallenge,
+    isWaitingChallenge,
+    completeChallenge,
+    resetChallenge,
+  } = useContext(ChallengesContext)
   const { resetCountdown } = useContext(CountdownContext)
 
   function handleChallengeSucceeded() {
@@ -13,15 +18,25 @@ function ChallengeBox() {
     resetCountdown()
   }
 
-  function handleChallengeFalied() {
+  function handleChallengeFailed() {
     resetChallenge()
     resetCountdown()
   }
 
   return (
     <div className={styles.challengeBoxContainer}>
-      {activeChallenge ? (
-        <div className={styles.challegeActive}>
+      {isWaitingChallenge ? (
+        <div className={styles.isWaitingChallenge}>
+          <strong>
+            Inicie um ciclo para receber desafios a serem completados
+          </strong>
+          <p>
+            <img src="icons/level-up.svg" alt="level-up" />
+            Complete-os e ganhe experiência e avance de leve.
+          </p>
+        </div>
+      ) : activeChallenge ? (
+        <div className={styles.challengeActive}>
           <header>Ganhe {activeChallenge.amount} xp</header>
 
           <main>
@@ -36,15 +51,15 @@ function ChallengeBox() {
           <footer>
             <button
               type="button"
-              className={styles.challengeFaliedButton}
-              onClick={handleChallengeFalied}
+              className={styles.challengeFailedButton}
+              onClick={handleChallengeFailed}
             >
               Falhei
             </button>
 
             <button
               type="button"
-              className={styles.challengSucceededButton}
+              className={styles.challengeSucceededButton}
               onClick={handleChallengeSucceeded}
             >
               Completei
@@ -53,12 +68,10 @@ function ChallengeBox() {
         </div>
       ) : (
         <div className={styles.challengeNotActive}>
-          <strong>
-            Inicie um ciclo para receber desafios a serem conpletados
-          </strong>
+          <strong>Inicie um ciclo para receber desafios</strong>
           <p>
             <img src="icons/level-up.svg" alt="level-up" />
-            Avance de level completando desafios
+            Avance de level completando os desafios.
           </p>
         </div>
       )}
@@ -66,4 +79,4 @@ function ChallengeBox() {
   )
 }
 
-export default ChallengeBox
+export { ChallengeBox }

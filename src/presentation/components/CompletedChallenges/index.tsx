@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { ChallengesContext } from '../contexts/ChallengeContext'
-import styles from './CompletedChallenges.module.css'
+import { ChallengesContext } from '../../contexts/ChallengeContext'
+import styles from './styles.module.css'
 
 function CompletedChallenges() {
   const { challengesCompleted } = useContext(ChallengesContext)
@@ -13,4 +13,4 @@ function CompletedChallenges() {
   )
 }
 
-export default CompletedChallenges
+export { CompletedChallenges }
