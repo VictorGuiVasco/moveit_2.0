@@ -30,11 +30,6 @@
   }
 }
 
-html {
-  font-family: inter;
-  font-family: rajdhani;
-}
-
 body {
   background-color: var(--background);
   color: var(--text);
@@ -44,7 +39,7 @@ body,
 input,
 textarea,
 button {
-  font: 400 1rem 'Inter', sans-serif;
+  font: 400 1rem;
 }
 
 button {

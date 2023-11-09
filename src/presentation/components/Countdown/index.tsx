@@ -3,11 +3,12 @@ import { useContext } from 'react'
 import { Rajdhani } from 'next/font/google'
 import { CountdownContext } from '../../contexts/CountdownContext'
 
-import styles from './styles.module.css'
+import styles from './styles.module.scss'
 
 const rajdhani = Rajdhani({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '600'],
+  variable: '--font-rajdhani',
 })
 
 function Countdown() {
@@ -30,7 +31,9 @@ function Countdown() {
           <span>{minuteLeft}</span>
           <span>{minuteRight}</span>
         </div>
-        <span>:</span>
+
+        <span className={rajdhani.className}>:</span>
+
         <div className={rajdhani.className}>
           <span>{secondLeft}</span>
           <span>{secondRight}</span>
