@@ -9,19 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "eslint": "8.49.0",
-    "eslint-config-next": "13.5.2",
-    "js-cookie": "^2.2.1",
-    "next": "13.5.2",
+    "eslint": "8.53.0",
+    "eslint-config-next": "14.0.1",
+    "js-cookie": "^3.0.5",
+    "next": "13.5.6",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@types/js-cookie": "^2.2.6",
-    "@types/node": "^14.14.31",
-    "@types/react": "^17.0.2",
-    "@types/react-dom": "^17.0.1",
+    "@types/js-cookie": "^3.0.6",
+    "@types/node": "^20.9.0",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
     "sass": "^1.68.0",
-    "typescript": "^4.1.5"
+    "typescript": "^5.2.2"
   }
 }
