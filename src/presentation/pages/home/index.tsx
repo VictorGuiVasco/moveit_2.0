@@ -14,7 +14,7 @@ import {
   Profile,
 } from '../../components'
 
-import styles from './Home.module.css'
+import styles from './Home.module.scss'
 
 interface HomePageProps {
   level: number
