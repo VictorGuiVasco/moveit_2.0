@@ -4,7 +4,7 @@ import challenges from '../../utils/challenges.json'
 import { LevelUpModal } from '../components/'
 
 interface Challenge {
-  type: 'body' | 'eye'
+  type: 'body' | 'eye' | string
   description: string
   amount: number
 }
@@ -15,8 +15,7 @@ interface ChallengesContextData {
   challengesCompleted: number
   experienceToNextLevel: number
   isWaitingChallenge: boolean
-  activeChallenge: Challenge
-  levelUp: () => void
+  activeChallenge: Challenge | null
   startNewChallenge: () => void
   resetChallenge: () => void
   completeChallenge: () => void
@@ -46,7 +45,7 @@ export function ChallengesProvider({
   )
 
   const [isWaitingChallenge, setIsWaitingChallenge] = useState(false)
-  const [activeChallenge, setActiveChallenge] = useState(null)
+  const [activeChallenge, setActiveChallenge] = useState<Challenge | null>(null)
   const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false)
 
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2)
@@ -61,13 +60,18 @@ export function ChallengesProvider({
     Cookies.set('challengesCompleted', String(challengesCompleted))
   }, [level, currentExperience, challengesCompleted])
 
-  function levelUp() {
-    setLevel(level + 1)
-    setIsLevelUpModalOpen(true)
-  }
+  function levelUp(experience: number, xpToNextLevel: number, level: number) {
+    let tempLevel = level + 1
+    experience = experience - experienceToNextLevel
+    xpToNextLevel = Math.pow((tempLevel + 1) * 4, 2)
 
-  function closeLevelUpModal() {
-    setIsLevelUpModalOpen(false)
+    if (experience >= xpToNextLevel) {
+      levelUp(experience, xpToNextLevel, tempLevel)
+    } else {
+      setLevel(tempLevel)
+      setIsLevelUpModalOpen(true)
+    }
+    return experience
   }
 
   function startNewChallenge() {
@@ -86,27 +90,27 @@ export function ChallengesProvider({
     }
   }
 
-  function resetChallenge() {
-    setActiveChallenge(null)
-  }
-
   function completeChallenge() {
-    if (!activeChallenge) {
-      return
-    }
+    if (!activeChallenge) return
 
     const { amount } = activeChallenge
-
     let finalExperience = currentExperience + amount
 
     if (finalExperience >= experienceToNextLevel) {
-      finalExperience = finalExperience - experienceToNextLevel
-      levelUp()
+      finalExperience = levelUp(finalExperience, experienceToNextLevel, level)
     }
 
     setCurrentExperience(finalExperience)
     setActiveChallenge(null)
     setChallengesCompleted(challengesCompleted + 1)
+  }
+
+  function resetChallenge() {
+    setActiveChallenge(null)
+  }
+
+  function closeLevelUpModal() {
+    setIsLevelUpModalOpen(false)
   }
 
   return (
@@ -116,7 +120,6 @@ export function ChallengesProvider({
         currentExperience,
         challengesCompleted,
         experienceToNextLevel,
-        levelUp,
         isWaitingChallenge,
         startNewChallenge,
         activeChallenge,
