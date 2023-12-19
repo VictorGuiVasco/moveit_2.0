@@ -30,9 +30,8 @@ function Countdown() {
   const [minuteLeft, minuteRight] = String(minutes).padStart(2, '0').split('')
   const [secondLeft, secondRight] = String(seconds).padStart(2, '0').split('')
 
-  var percentBar = (time / totalTime) * 100
+  let percentBar = (time / totalTime) * 100
   percentBar = (percentBar - 100) * -1
-  console.log(percentBar)
 
   return (
     <>
